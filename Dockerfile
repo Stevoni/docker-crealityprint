@@ -45,17 +45,17 @@ RUN \
     libwx-perl && \
   echo "**** install CrealityPrint from appimage ****" && \
   if [ -z ${CREALITYPRINT_VERSION+x} ]; then \
-    CrealityPrint_VERSION=$(curl -sX GET "https://api.github.com/repos/CrealityOfficial/CrealityPrint/releases/latest" \
+    CREALITYPRINT_VERSION=$(curl -sX GET "https://api.github.com/repos/CrealityOfficial/CrealityPrint/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   RELEASE_URL=$(curl -sX GET "https://api.github.com/repos/CrealityOfficial/CrealityPrint/releases/latest"     | awk '/url/{print $4;exit}' FS='[""]') && \
   DOWNLOAD_URL=$(curl -sX GET "${RELEASE_URL}" | awk '/browser_download_url.*AppImage/{print $4;exit}' FS='[""]') && \
   cd /tmp && \
   curl -o \
-    /tmp/orca.app -L \
+    /tmp/CrealityPrint.app -L \
     "${DOWNLOAD_URL}" && \
-  chmod +x /tmp/orca.app && \
-  ./orca.app --appimage-extract && \
+  chmod +x /tmp/CrealityPrint.app && \
+  ./CrealityPrint.app --appimage-extract && \
   mv squashfs-root /opt/CrealityPrint && \
   localedef -i en_GB -f UTF-8 en_GB.UTF-8 && \
   printf "Linuxserver.io based version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
